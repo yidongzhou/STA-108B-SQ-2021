@@ -1,0 +1,108 @@
+---
+title: "STA 108B SQ 2021 Discussion 1"
+author: "Yidong Zhou"
+date: "03/31/2021"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+## Discussion Sessions and Office Hours
+
+TA: Yidong Zhou (ydzhou@ucdavis.edu)
+
+Direct any sensitive or specifically personal matters to me or the instructor by email (**email please, not Canvas message**). In any emails, please include the text "**[STA108]**" (without the quotes) in the subject line.
+
+Discussion sessions: 
+
+- B01 Thursday 10:00 am - 10:50 am PT: https://ucdstats.zoom.us/j/97451580199
+- B02 Thursday 11:00 am - 11:50 am PT: https://ucdstats.zoom.us/j/98208364749
+
+Office hours: 
+
+- Friday 12:00 pm - 02:00 pm PT: https://ucdstats.zoom.us/j/92208605196
+
+*All the above zoom links can be found in Canvas --> Pages --> STA 108B Discussion.*
+
+## Review
+
+- Installation of R and RStudio: https://www.datacamp.com/community/tutorials/installing-R-windows-mac-ubuntu
+- Introduction to RStudio, including file creation, panel structure.
+- R basics, including variable creation, arithmetic calculation, vectors, and some basic functions: `help()`, `?`, `rep`, `seq`.
+
+## Data Manipulation
+
+We will learn how to perform data manipulation in R programming language along with data processing. We will also overview the three operators such as subsetting, manipulation as well as sorting in R. Also, we will learn about data structures in R, how to create subsets in R and usage of R `sample()` command, ways to visualize data in R.
+
+With the help of data structures, we can represent data in the form of data analytics. Data Manipulation in R can be carried out for further analysis and visualization. The first step is to figure out how to import data in R.
+
+`Environment` panel --> `Import Dataset` --> `From Text(readr)...` --> `browse` --> `Import`
+
+Secondly, you need to be familiar with basic **data structures** in R (`class` function):
+
+- `Vectors`: ordered containers of primitive elements and are used for 1-dimensional data.
+- `Matrices`: rectangular collections of elements and are useful when all data is of a single class that is numeric or characters.
+- `Lists`: ordered containers for arbitrary elements and are used for higher dimension data, like customer data information of an organization. When data cannot be represented as an array or a data frame, the list is the best choice. This is because lists can contain all kinds of other objects, including other lists or data frames, and in that sense, they are very flexible.
+- `Data Frames`: two-dimensional containers for records and variables and are used for representing data from spreadsheets etc. It is similar to a single table in the database.
+
+(**data types**: integer, numeric, logical, character, complex.)
+
+### subset data
+
+The process of creating samples is called subsetting. Different methods of subsetting in R are:
+
+- `$`: The dollar sign operator selects a single element of data. The result of this operator is always a vector when we use it with a `data frame`.
+- `[[`: Similar to `$` in R, the double square brackets operator in R also returns a single element, but it offers the flexibility of referring to the elements by position rather than by name. It can be used for data frames and lists.
+- `[`: The single square bracket operator in R returns multiple elements of data. The index within the square brackets can be a numeric vector, a logical vector, or a character vector.
+
+For example: To retrieve 5 rows and all columns of already built-in dataset `mtcars`, the below command, is used:
+
+```{r}
+data(mtcars)
+mtcars$mpg# column called mpg
+mtcars[[1]]# first column
+mtcars[1:5, ]# first five rows
+mtcars[mtcars$cyl==8, ]# rows with 8 cylinders
+```
+
+#### `sample()` command in R
+
+For example, to create a sample of 10 simulations of a die, below command is used:
+
+```{r}
+sample(1:6, 10, replace=TRUE)
+```
+
+### draw histograms
+
+Histogram can be created using the `hist()` function in R programming language. This function takes in a vector of values for which the histogram is plotted.
+
+```{r}
+hist(mtcars[mtcars$cyl==8, ]$mpg, main='Histogram for mpgs of cars with 8 cylinders', xlab='mpg')
+hist(mtcars[mtcars$cyl==6, ]$mpg, main='Histogram for mpgs of cars with 6 cylinders', xlab='mpg')
+```
+
+### compute means and medians
+
+```{r}
+mean(mtcars[mtcars$cyl==8, ]$mpg)
+mean(mtcars[mtcars$cyl==6, ]$mpg)
+median(mtcars[mtcars$cyl==8, ]$mpg)
+median(mtcars[mtcars$cyl==6, ]$mpg)
+var(mtcars[mtcars$cyl==8, ]$mpg)
+sd(mtcars[mtcars$cyl==8, ]$mpg)
+summary(mtcars)
+```
+
+### draw mosaic plots
+
+The Mosaic Plot in R Programming is very useful to visualize the data from the contingency table or two-way frequency table. The R Mosaic Plot draws a rectangle, and its height represents the proportional value.
+
+```{r}
+table(mtcars$am, mtcars$cyl)# contingency table or two-way frequency table
+mosaicplot(mtcars$am~mtcars$cyl, main='Mosaic plot', xlab='transmission', ylab='cylinders')
+```
+
+## Code Appendix
+```{r, ref.label=knitr::all_labels(),echo=TRUE,eval=FALSE}
+```
