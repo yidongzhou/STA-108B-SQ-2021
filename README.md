@@ -1,6 +1,6 @@
 # STA-108B-SQ-2021
 
-Welcome to STA 138! Here you can find all discussion materials in this course. Also, I have included some other meterials for your reference.
+Welcome to STA 108! Here you can find all discussion materials in this course. Also, I have included some other meterials for your reference.
 
 If you want to have a deeper understanding about R programming, the following reference may be useful.
 
@@ -13,3 +13,4 @@ The following online learning resources serve as an introduction to R programmin
 - Online learning website: [DataCamp](https://www.datacamp.com/)
 - Youtube video tutorial: https://youtu.be/_V8eKsto3Ug
 - Blog: https://www.r-bloggers.com/
+- R Markdown Tutorial: [R Markdown: The Definitive Guide](https://bookdown.org/yihui/rmarkdown/)
