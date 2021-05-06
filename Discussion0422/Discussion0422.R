@@ -14,4 +14,20 @@ ybar <- mean(y)
 sum((x-xbar)^2)
 sum((y-ybar)^2)
 sum((x-xbar)*(y-ybar))
+summary(lm(y~x))
+confint(lm(y~x), level = 0.9)
 anova(lm(y~x))
+yh <- 30*(-0.8919)+139.5705
+yh-6.417*sqrt(1/6+(30-xbar)^2/sum((x-xbar)^2))*qt(0.975, 4)
+yh+6.417*sqrt(1/6+(30-xbar)^2/sum((x-xbar)^2))*qt(0.975, 4)
+# (99.38, 126.25)
+
+
+x <- c(43, 41, 47, 76, 72, 76)
+y <- c(106, 106, 97, 56, 70, 74)
+summary(lm(y~x))
+confint(lm(y~x))
+yh <- 30*(-1.1781)+154.5394
+yh-6.545*sqrt(1/6+(30-xbar)^2/sum((x-xbar)^2))*qt(0.95, 4)
+yh+6.545*sqrt(1/6+(30-xbar)^2/sum((x-xbar)^2))*qt(0.95, 4)
+# [107.15, 131.24]
