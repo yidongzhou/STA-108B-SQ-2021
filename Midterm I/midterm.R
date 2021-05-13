@@ -10,7 +10,7 @@
 #===================================================
 
 
-data_muscle<-read.table("/Users/easton/Downloads/muscle2.txt")
+data_muscle<-read.table("/Users/easton/Google Drive/Courses/TA/STA-108B-SQ-2021/Midterm I/muscle2.txt")
 is.data.frame(data_muscle)
 
 
@@ -22,7 +22,7 @@ is.data.frame(data_muscle)
 
 names(data_muscle)<-c("Muscle", "Age")
 
-plot(data_muscle, xlab="Age", ylab= "Muscle",col=2)
+plot(data_muscle, xlab="Muscle", ylab= "Age",col=2)
 
 
 head(data_muscle)
