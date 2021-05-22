@@ -1,0 +1,86 @@
+---
+title: "Midterm II Solution"
+author: "Yidong Zhou"
+date: "5/21/2021"
+output: pdf_document
+---
+
+## Q1
+
+```{r}
+plastic <- read.table("http://users.stat.ufl.edu/~rrandles/sta4210/Rclassnotes/data/textdatasets/KutnerData/Chapter%20%201%20Data%20Sets/CH01PR22.txt")
+colnames(plastic) <- c('Y', 'X')
+str(plastic)
+n <- nrow(plastic)
+p <- 2
+```
+
+### (a) 15 points
+
+- $(\mathbf{X}'\mathbf{X})^{-1}$
+
+Here we have only one predictor. The design matrix $\mathbf{X}$ should be $n$ by $2$, where $n$ is the number of observations ($n=16$ in this case).
+
+```{r}
+X <- cbind(rep(1, n), plastic$X)# n by 2
+Y <- plastic$Y# n by 1
+solve(t(X)%*%X)
+```
+
+- $\mathbf{b}$
+
+To make sure that `b` is a vector, you can either use `as.vector()` or `as.numeric()`. See `class(solve(t(X)%*%X)%*%t(X)%*%Y)`.
+
+```{r}
+b <- as.vector(solve(t(X)%*%X)%*%t(X)%*%Y)
+b
+```
+
+- SSE
+
+The same for SSE, `as.vector()` or `as.numeric()` can be used.
+
+```{r}
+H <- X%*%solve(t(X)%*%X)%*%t(X) # n by n
+I <- diag(n)
+SSE <- as.vector(t(Y)%*%(I-H)%*%Y)
+MSE <- SSE/(n-p)
+SSE
+```
+
+### (b) 10 points
+
+$s\{b_i\}$ is the square root of $s^2\{b_i\}$, i.e., the square root of the $(i, i)$ entry of the variance covariance matrix of $\mathbf{b}$. $s\{b_i, b_j\}$ is the $(i, j)$ entry of the variance covariance matrix of $\mathbf{b}$.
+
+```{r}
+s2b <- MSE*solve(t(X)%*%X)
+sqrt(diag(s2b)[1])
+sqrt(diag(s2b)[2])
+s2b[1, 2]# or s2b[2, 1]
+```
+
+### (c) 5 points
+
+Note that $\frac{1}{n}\mathbf{J}$ is equal to $\mathbf{1}(\mathbf{1}'\mathbf{1})^{-1}\mathbf{1}'$, where $\mathbf{1}$ is the $n$-vector of ones.
+
+```{r}
+J <- rep(1, n)%*%t(rep(1, n))
+H-J/n
+```
+
+### (d) 10 points
+
+See $(6.50)$ in the textbook.
+
+```{r}
+alpha <- 1-0.95
+c(L = b[2] - qt(1-alpha/2, n-p)*sqrt(diag(s2b)[2]), 
+  U = b[2] + qt(1-alpha/2, n-p)*sqrt(diag(s2b)[2]))
+```
+
+
+## Q2
+
+## Code Appendix
+```{r, ref.label=knitr::all_labels(), echo=TRUE, eval=FALSE}
+```
