@@ -92,7 +92,7 @@ n <- sapply(dfRegion, nrow)
 p <- 6
 ```
 
-### (a)
+### (a) 12 points
 
 ```{r}
 fit <- list()
@@ -104,11 +104,11 @@ for(i in 1:4) beta[i, ] <- fit[[i]]$coefficients
 beta
 ```
 
-### (b)
+### (b) 12 points
 
 The answer should elaborate the difference between the four estimated regression functions, especially the sign of the coefficients.
 
-### (c)
+### (c) 12 points
 
 Remember to state the decision rule and conclusion
 
@@ -133,7 +133,7 @@ MSR
 1-pf(MSR/MSE, df1 = p-1, df2 = n-p)
 ```
 
-### (d)
+### (d) 12 points
 
 ```{r message=FALSE, fig.height=6, fig.width=4, fig.align='center'}
 res <- list()
@@ -145,7 +145,7 @@ par(mfrow = c(1, 1))
 par(opar)
 ```
 
-### (e)
+### (e) 12 points
 
 This question is much more open. Possible directions include the coefficients, F-test, or residual plots.
 
