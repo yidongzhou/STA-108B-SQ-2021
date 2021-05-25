@@ -81,6 +81,74 @@ c(L = b[2] - qt(1-alpha/2, n-p)*sqrt(diag(s2b)[2]),
 
 ## Q2
 
+```{r}
+df <- read.table('/Users/easton/Google Drive/Teaching/TA/STA-108B-SQ-2021/Midterm II/Demographic.txt')
+df[, 5] <- df[, 5]/df[, 4]
+df <- df[, c(10, 5, 15, 11, 16, 14, 17)]
+colnames(df) <- c('Y', paste0('X', 1:5), 'Region')
+dfRegion <- list()
+for(i in 1:4) dfRegion[[i]] <- df[df$Region==i, -7]
+n <- sapply(dfRegion, nrow)
+p <- 6
+```
+
+### (a)
+
+```{r}
+fit <- list()
+for(i in 1:4) fit[[i]] <- lm(Y~., data = dfRegion[[i]])
+beta <- matrix(nrow = 4, ncol = p)
+colnames(beta) <- names(fit[[1]]$coefficients)
+rownames(beta) <- paste0('Region ', 1:4)
+for(i in 1:4) beta[i, ] <- fit[[i]]$coefficients
+beta
+```
+
+### (b)
+
+The answer should elaborate the difference between the four estimated regression functions, especially the sign of the coefficients.
+
+### (c)
+
+Remember to state the decision rule and conclusion
+
+```{r}
+MSE <- rep(1, 4)
+MSR <- rep(1, 4)
+for(i in 1:4){
+  MSE[i] <- anova(fit[[i]])['Residuals', 'Mean Sq']
+  MSR[i] <- sum(anova(fit[[i]])[paste0('X', 1:5), 'Sum Sq'])/(p-1)
+}
+```
+
+```{r}
+MSE
+```
+
+```{r}
+MSR
+```
+
+```{r}
+1-pf(MSR/MSE, df1 = p-1, df2 = n-p)
+```
+
+### (d)
+
+```{r message=FALSE, fig.height=6, fig.width=4, fig.align='center'}
+res <- list()
+for(i in 1:4) res[[i]] <- fit[[i]]$residuals
+opar <- par(mar=c(1, 2, 1, 1))
+par(mfrow = c(2, 2))
+for(i in 1:4) boxplot(res[[i]])
+par(mfrow = c(1, 1))
+par(opar)
+```
+
+### (e)
+
+This question is much more open. Possible directions include the coefficients, F-test, or residual plots.
+
 ## Code Appendix
 ```{r, ref.label=knitr::all_labels(), echo=TRUE, eval=FALSE}
 ```

@@ -45,3 +45,44 @@ fit <- lm(Y~X, data = plastic)
 summary(fit)
 # sqrt(MSE)=3.234
 3.234^2*(n-p)
+
+# Q2
+# 1
+p <- 6
+df <- read.table('/Users/easton/Google Drive/Teaching/TA/STA-108B-SQ-2021/Midterm II/Demographic.txt')
+df[, 5] <- df[, 5]/df[, 4]
+df <- df[, c(10, 5, 15, 11, 16, 14, 17)]
+colnames(df) <- c('Y', paste0('X', 1:5), 'Region')
+dfRegion <- list()
+for(i in 1:4) dfRegion[[i]] <- df[df$Region==i, -7]
+n <- sapply(dfRegion, nrow)
+fit <- list()
+for(i in 1:4) fit[[i]] <- lm(Y~., data = dfRegion[[i]])
+beta <- matrix(nrow = 4, ncol = p)
+colnames(beta) <- names(fit[[1]]$coefficients)
+rownames(beta) <- paste0('Region ', 1:4)
+for(i in 1:4) beta[i, ] <- fit[[i]]$coefficients
+beta
+
+# 2
+# not similar
+
+# 3
+MSE <- rep(1, 4)
+MSR <- rep(1, 4)
+for(i in 1:4){
+  MSE[i] <- anova(fit[[i]])['Residuals', 'Mean Sq']
+  MSR[i] <- sum(anova(fit[[i]])[paste0('X', 1:5), 'Sum Sq'])/(p-1)
+}
+MSE
+MSR
+1-pf(MSR/MSE, df1 = p-1, df2 = n-p)
+
+# 4
+res <- list()
+for(i in 1:4) res[[i]] <- fit[[i]]$residuals
+par(mfrow = c(2, 2))
+for(i in 1:4) boxplot(res[[i]])
+par(mfrow = c(1, 1))
+
+# 5
