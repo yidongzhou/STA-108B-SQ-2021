@@ -12,7 +12,7 @@ plastic <- read.table("http://users.stat.ufl.edu/~rrandles/sta4210/Rclassnotes/d
 colnames(plastic) <- c('Y', 'X')
 str(plastic)
 n <- nrow(plastic)
-p <- 2
+p <- 2# the number of columns in the design matrix X
 ```
 
 ### (a) 15 points
